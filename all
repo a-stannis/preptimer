@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>15-Minute Timer</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 1s ease;
+    }
+
+    #timer {
+      font-size: 6rem;
+      color: white;
+    }
+
+    #message {
+      font-size: 2rem;
+      margin-top: 20px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="timer">15:00</div>
+  <div id="message">Let's begin!</div>
+
+  <script>
+    const timerElement = document.getElementById("timer");
+    const messageElement = document.getElementById("message");
+    const body = document.body;
+
+    let totalSeconds = 15 * 60;
+
+    function updateDisplay(minutes, seconds) {
+      timerElement.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }
+
+    function updateBackgroundAndMessage() {
+      if (totalSeconds > 10 * 60) {
+        body.style.backgroundColor = "#1abc9c"; // Green
+        messageElement.textContent = "Stay focused.";
+      } else if (totalSeconds > 5 * 60) {
+        body.style.backgroundColor = "#f39c12"; // Orange
+        messageElement.textContent = "Halfway there!";
+      } else if (totalSeconds > 0) {
+        body.style.backgroundColor = "#e74c3c"; // Red
+        messageElement.textContent = "Final push!";
+      } else {
+        body.style.backgroundColor = "#2c3e50"; // Dark
+        messageElement.textContent = "Time's up!";
+      }
+    }
+
+    function countdown() {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+
+      updateDisplay(minutes, seconds);
+      updateBackgroundAndMessage();
+
+      if (totalSeconds > 0) {
+        totalSeconds--;
+        setTimeout(countdown, 1000);
+      }
+    }
+
+    countdown(); // Start the timer
+  </script>
+</body>
+</html>
