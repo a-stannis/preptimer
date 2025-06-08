@@ -26,6 +26,7 @@
       font-size: 2rem;
       margin-top: 20px;
       color: white;
+      text-align: center;
     }
   </style>
 </head>
@@ -45,18 +46,35 @@
     }
 
     function updateBackgroundAndMessage() {
-      if (totalSeconds > 10 * 60) {
-        body.style.backgroundColor = "#1abc9c"; // Green
-        messageElement.textContent = "Stay focused.";
-      } else if (totalSeconds > 5 * 60) {
-        body.style.backgroundColor = "#f39c12"; // Orange
-        messageElement.textContent = "Halfway there!";
-      } else if (totalSeconds > 0) {
-        body.style.backgroundColor = "#e74c3c"; // Red
-        messageElement.textContent = "Final push!";
-      } else {
-        body.style.backgroundColor = "#2c3e50"; // Dark
-        messageElement.textContent = "Time's up!";
+      switch (totalSeconds) {
+        case 14 * 60:
+          body.style.backgroundColor = "#2ecc71"; // green
+          messageElement.textContent = "Final thoughts";
+          break;
+        case 12 * 60:
+          body.style.backgroundColor = "#3498db"; // blue
+          messageElement.textContent = "Fill in";
+          break;
+        case 9 * 60:
+          body.style.backgroundColor = "#9b59b6"; // purple
+          messageElement.textContent = "Burdens";
+          break;
+        case 8 * 60:
+          body.style.backgroundColor = "#34495e"; // dark gray
+          messageElement.textContent = "Finalize case and BL";
+          break;
+        case 5 * 60:
+          body.style.backgroundColor = "#e67e22"; // orange
+          messageElement.textContent = "Strategy, Opp and Mech";
+          break;
+        case 2 * 60 + 50:
+          body.style.backgroundColor = "#f1c40f"; // yellow
+          messageElement.textContent = "Share ideas";
+          break;
+        case 0:
+          body.style.backgroundColor = "#95a5a6"; // gray
+          messageElement.textContent = "Quiet time";
+          break;
       }
     }
 
@@ -70,6 +88,8 @@
       if (totalSeconds > 0) {
         totalSeconds--;
         setTimeout(countdown, 1000);
+      } else {
+        updateBackgroundAndMessage(); // Ensure final state is applied
       }
     }
 
